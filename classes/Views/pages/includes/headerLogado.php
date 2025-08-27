@@ -1,0 +1,140 @@
+<?php
+$url = explode('/',@$_GET['url'])[0];
+  if(isset($_GET['logout'])){
+     \Painel::logout();
+  }
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/logo.webp">
+    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/css_10.css">
+    <script src="https://kit.fontawesome.com/83f5ffa4ac.js" crossorigin="anonymous"></script>
+
+    <style>
+        .items{
+            position: relative;
+        }
+
+        .notification{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            position: absolute;
+            top:-5px;
+            right:-10px;
+            width: 15px;
+            height:15px;
+            border-radius:50%;
+            color:white;
+            background:red;
+            font-size:13px;
+            font-weight:normal;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<base base = "<?php echo INCLUDE_PATH ?>">
+<?php
+
+?>
+
+<div class="mini-header">
+  <div class="items right">
+   <div class="notification"><?php print 0; ?></div><!--notification-->
+   <a href="solicitacoes"><i class="fa fa-users"></i></a></a>
+  </div><!--items-->
+
+  <div class="items right">
+   <a href="resposta"><i class="fa fa-message"></i></a></a>
+  </div><!--items-->
+
+  <div class="items right">
+   <a href="solicitacoes"><i class="fa fa-bell"></i></a></a>
+  </div><!--items-->
+
+
+  <div class="clear"></div><!--clear-->
+</div><!--mini-header-->
+<header>
+ <div class="container">
+    <div class="logo left">
+        <a href="<?php echo INCLUDE_PATH ?>campus"><img src="<?php echo INCLUDE_PATH ?>img/Logo_white_on_darkred.png"></a>
+    </div><!--logo-->
+
+  
+
+    <div class="icon">
+        <i class="fa fa-bars"></i>
+    </div><!--icon-->
+    <ul class="desktop right">
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>campus">Home</a>
+        </li>
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>comunidade" <?php \Painel::verifica('comunidade'); ?> <?php if(explode('/',$_GET['url'])[0] == 'mensagem') print "class='selected'" ?>>Comunidade</a>
+        </li>
+
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
+        </li>
+
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>assistencia  " <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
+        </li>
+
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>forum" <?php \Painel::verifica('forum'); ?>>Fórum</a>
+        </li>
+
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>turma" <?php \Painel::verifica('turma'); ?>>Turma</a>
+        </li>
+
+        <li>
+            <a href="?logout"><i class="fa fa-power-off"></i></a>
+        </li>
+    </ul>
+
+
+
+    <ul class="mobile right">
+        <li>
+            <a href="campus">Home</a>
+        </li>
+
+        <li>
+            <a href="comunidade">Comunidade</a>
+        </li>
+
+        <li>
+            <a href="noticias">Notícias</a>
+        </li>
+
+        <li>
+            <a href="forum">Fórum</a>
+        </li>
+
+        <li>
+            <a href="turma">Turma</a>
+        </li>
+    </ul>
+
+
+
+
+    <div class="clear"></div><!--clear-->
+ </div><!--container-->
+</header>

@@ -1,0 +1,230 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+html,body{
+    height: 100%;
+    background: var(--body-color);
+}
+
+:root{
+    --body-color:#E5E5E5;
+    --dominante-color:#FFFFFF;
+    --secundary-color:#721011;
+    --destaque-color:#FFC107;
+    --hover:#8A1A20;
+    --facebook-color:rgba(167, 171, 176,0.7);
+}
+
+
+.clear{
+    clear: both;
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+.center{
+    float: center;
+}
+
+/* Login */
+
+div.rolling-box{
+    max-width: 1200px;
+    width: 95%;
+    height: 6px;
+    background: #ccc;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    border-radius: 5px;
+    transition: all 0.5s ease;
+}
+
+div.rolling{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    background: var(--secundary-color);
+    border-radius: 5px;
+    animation: andar;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes andar{
+    0%{width:20%}
+    50%{width: 80%;background: linear-gradient(40deg, #721011,#700406,#943233,#590102);}
+    100%{width:20%}
+}
+
+
+
+div.left-content{
+    position: relative;
+    top: -60px;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding: 30px;
+    height: 450px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background: #eaeaea;
+}
+
+
+div.icon-faculdade{
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translate(-50%,50%);
+    -ms-transform: translate(-50%,-50%);
+    width: 320px;
+    height: 320px;
+    border-radius: 100%;
+    animation-name:largura;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+/* @keyframes largura{
+ 0%{transform: scale(0.5)}
+ 50%{transform: scale(0.8);transform: rotate(120deg)}
+ 100%{transform: scale(0.5);}
+} */
+
+div.icon-faculdade img{
+    width: 100%;
+    height: 100%;
+}
+
+
+section.box-login-container{
+    width: 95%;
+    max-width: 1200px;
+    height: 300px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+
+div.box-login{
+    width: 95%;
+    max-width: 550px;
+    height: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+}
+
+
+div.box-login h3{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+div.box-login p{
+    padding: 5px 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+div.logo-login{
+    width: 60%;
+    height: 70px;
+    margin-bottom: 5px;
+}
+
+div.logo-login img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+form{
+    padding-top:5px ;
+}
+
+.form-group{
+    position: relative;
+}
+
+.form-group i{
+    position: absolute;
+    top: 32px;
+    left: 10px;
+    color: var(--hover);
+}
+
+
+
+.form-group a{
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--secundary-color);
+}
+
+.form-group span{
+    color: var(--secundary-color);
+}
+
+.form-group label{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.form-group input:not([type=submit]){
+    width: 100%;
+    height: 35px;
+    border:1px solid #ccc;
+    padding-left: 30px;
+    outline: none;
+    margin-bottom: 5px;
+    border-color: var(--hover);
+}
+
+.form-group input[type=checkbox]{
+    width: 12px;
+}
+
+
+.form-group input[type=submit]{
+    margin: 5px 0;
+    width: 100px;
+    height: 30px;
+    border: 0;
+    color: white;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+    background: var(--secundary-color);
+    transition: all 0.5s ease;
+}
+
+.form-group input:not([type=submit]):focus{
+    border-color: var(--hover);
+}
+
+.form-group input[type=submit]:hover{
+    background: var(--hover);
+}
+

@@ -1,0 +1,212 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+html,body{
+    height: 100%;
+    background:var(--dominante-color);
+}
+
+:root{
+    --body-color:#E5E5E5;
+    --dominante-color:#FFFFFF;
+    --secundary-color:#721011;
+    --destaque-color:#FFC107;
+    --hover:#8A1A20;
+    --facebook-color:rgba(167, 171, 176,0.7);
+    --color-success:#28a745;
+    --color-erro:#f44336;
+}
+
+.container{
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+
+.clear{
+    clear: both;
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+.center{
+    float: center;
+}
+
+.line{
+    width: 700px;
+    height: 1px;
+    background: #ccc;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+}
+
+
+/* -- side-login -- */
+div.row-login{
+   display: flex;
+   align-items: center;
+   flex-wrap: nowrap;
+   width: 100%;
+   height: 500px;
+   padding: 30px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+   -ms-transform: translate(-50%,-50%);
+}
+
+
+div.logo-login{
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    background: #f8f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.logo-login img{
+    width: 70%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+div.form-login{
+    width: 40%;
+    height: 100%;
+    padding: 50px;
+    margin-left: 50px;
+}
+
+div.logo-form{
+    width: 350px;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+div.form-login h3{
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 6px;
+
+}
+
+div.form-login p{
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+div.logo-form img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+form{
+   width: 100%;
+}
+
+
+form .form-group{
+    position: relative;
+}
+
+form .form-group i{
+    color: var(--facebook-color);
+}
+
+form .form-group i.olho{
+  position: absolute;
+  top: 50%;
+  right:20px;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  cursor: pointer;
+}
+
+form .form-group i.seguranca,
+form .form-group i.user{
+    position: absolute;
+    top: 50%;
+    left:12px;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+}
+
+
+form .form-group label{
+    font-size: 13px;
+    font-weight: normal;
+}
+
+
+div .recupera-form{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+div .recupera-form a:nth-of-type(1){
+    font-size: 15px;
+    font-weight: normal;
+    color: var(--secundary-color);
+    text-decoration: none;
+}
+
+form .form-group input[type=text],
+form .form-group input[type=password]{
+  width: 100%;
+  height: 35px;
+  padding-left: 35px;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.4px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+form .form-group input[type=submit]{
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    border: 0;
+    background: var(--secundary-color);
+    cursor: pointer;
+    color: var(--dominante-color);
+    font-size: 15px;
+    font-weight: normal;
+}
+
+form .form-group input:not([type=submit]):focus{
+    border-color: rgb(3, 215, 215);
+}
+
+form .form-group input[type=submit]:hover{
+    background: var(--hover);
+}
+
+

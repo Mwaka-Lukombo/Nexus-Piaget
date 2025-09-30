@@ -14,7 +14,7 @@
    ?>
    <div class="noticia-sigle">
   <div class="flex">
-    <div class="noticia-left">
+    <div class="noticia-left">  
       <div class="perfil">
         
     <?php 

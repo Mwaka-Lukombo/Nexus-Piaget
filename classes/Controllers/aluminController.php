@@ -18,7 +18,8 @@ class aluminController{
 
 
     public static function listarNoticias(){
-        $sql = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.noticias_alumin` ");
+       
+        $sql = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.noticias_alumin` ORDER BY data desc  ");
         $sql->execute();
         return $sql->fetchAll();
     }

@@ -19,11 +19,17 @@
       ?>
       <div class="guardado-single">
         <div class="guardado-left w50">
-        <video controls autoplay muted loop>
+          <?php 
+        if($noticia['video']){
+    ?>
+    <video controls autoplay muted loop>
             <source src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/videos/<?php echo $noticia['video']; ?>" type="video/mp4">
             <source src="movie.ogg" type="video/ogg">
     
             </video>
+        <?php }else{ ?>
+           <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/imagens/<?php echo $noticia['imagem']; ?>" />
+        <?php } ?>
         </div><!--guardado-left--> 
         <div class="guardado-right w50">
          <div class="line-top">

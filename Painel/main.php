@@ -28,7 +28,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
   <title>Painel de Controle</title>
   
   <!-- link do css -->
-   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_8000.css">
+   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_8500.css">
    <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/Logo.webp">
    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

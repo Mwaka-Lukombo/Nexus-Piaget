@@ -19,7 +19,7 @@ $url = explode('/',@$_GET['url'])[0];
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/logo.webp">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/forum_1300.css">
+    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/forum_1900.css">
     <script src="https://kit.fontawesome.com/83f5ffa4ac.js" crossorigin="anonymous"></script>
     
 </head>

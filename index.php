@@ -24,6 +24,7 @@ $topicoForumController= new \Controllers\topicosController;
 $turmaController = new \Controllers\turmaController;
 $turmaSingleController = new \Controllers\turmaSingleController;
 $oldChatController = new \Controllers\oldChatController;
+$vagasController = new \Controllers\vagasController;
 
 
 
@@ -45,6 +46,10 @@ Router::get('/alumin',function() use ($aluminController){
 
 Router::get('/alumin/conexoes', function() use ($conexoesController){
    $conexoesController->index();
+});
+
+Router::get('/alumin/vagas',function() use ($vagasController){
+  $vagasController->index();
 });
 
 Router::get('/alumin/conexoes/?',function ($arr) use ($perfilSinlgeController){

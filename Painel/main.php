@@ -28,7 +28,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
   <title>Painel de Controle</title>
   
   <!-- link do css -->
-   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_8500.css">
+   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_1200.css">
    <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/Logo.webp">
    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -40,6 +40,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
   <div class="toggle_button">
      <span>>></span>
   </div><!--toggle_button-->
+
 
   <div class="logo">
     <img src="<?php echo INCLUDE_PATH ?>img/Logo.webp">
@@ -54,51 +55,69 @@ $nome = explode(" ",$_SESSION['nome'])[0];
       <span>Painel</span>
     </div><!--items-single-->
 
+  
     <div class="items-single <?php if($url == 'postagens') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>postagens"><i class="bx bx-news"></i></a>
       <span>Post's</span>
     </div><!--items-single-->
-
    
+
+   <?php 
+     if($_SESSION['cargo'] == 2){
+   ?>
     <div class="items-single <?php if($url == 'gerenciar_postagens') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>gerenciar_postagens"><i class="bx bx-doughnut-chart"></i></a>
       <span>Gerenciar Post's</span>
     </div><!--items-single-->
+    <?php } ?>
 
 
-
+ <?php 
+   if($_SESSION['cargo'] == 3){
+ ?>
     <div class="items-single <?php if($url == 'funcionarios') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>funcionarios"><i class="bx bx-user-check"></i></a>
       <span>Funcionários</span>
     </div><!--items-single-->
+    <?php } ?>
 
-
+<?php
+  if($_SESSION['cargo'] == 2 || $_SESSION['cargo'] == 1){
+?>
     <div class="items-single <?php if($url == 'foruns') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>foruns"><i class="bx bx-user-voice"></i></a>
       <span>Fóruns</span>
     </div><!--items-single-->
+    <?php } ?>
 
    
-
+<?php 
+   if($_SESSION['cargo'] == 1){
+?>
     <div class="items-single <?php if($url == 'turmas') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>turmas"><i class="bx bx-chalkboard"></i></a>
       <span>Turmas</span>
     </div><!--items-single-->
+   <?php } ?>
 
-
-  
-
+<?php
+  if($_SESSION['cargo'] == 2){
+?>
     <div class="items-single <?php if($url == 'mensagens') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>mensagens"><i class="bx bx-conversation"></i></a>
       <span>Mensagens</span>
     </div><!--items-single-->
+<?php  } ?>
 
 
-  
+<?php
+  if($_SESSION['cargo'] == 2){
+?>
     <div class="items-single <?php if($url == 'conta') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>conta"><i class="bx bx-user-pin"></i></a>
       <span>Conta</span>
     </div><!--items-single-->
+ <?php  } ?>
   
 
     <div class="items-single <?php if($url == 'configuracoes') print 'selected'; ?>">

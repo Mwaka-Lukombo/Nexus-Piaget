@@ -1529,8 +1529,83 @@ h3.title-Single::before{
     background: var(--hover);
 }
 
+/* content-nexus-wellcome */
+.content-nexus-wellcome{
+    width: 100%;
+    background: var(--sidebar-color);
+    position: relative;
+    top: 30px;
+}
 
+.row-wellcome{
+    display: flex;
+}
 
+.wellcome-left-nexus{
+    padding: 30px;
+    width: 40%;
+    height: 300px;
+}
+
+.wellcome-left-nexus img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.wellcome-right-nexus{
+    width: 60%;
+    height: 100%;
+    padding: 20px;
+}
+
+.info-login{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 50px;
+}
+
+.info-login h4{
+    font-size: 2em;
+    padding-bottom: 5px;
+    color: var(--color-text);
+}
+
+.info-login h5{
+    font-size: 1.3em;
+    padding-bottom: 5px;
+    text-transform: capitalize;
+    color: var(--secundary-color);
+}
+
+.cargo-content{
+    margin-bottom: 40px;
+}
+
+.cargo-content span{
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    background: var(--secundary-color);
+    margin: 10px 0;
+    line-height: 30px;
+    font-weight:bold;
+    font: 0.9em;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.info-nexus h1{
+    padding-bottom: 5px;
+    color: var(--color-text);
+}
+
+.info-nexus p{
+    font-size: 1em;
+    line-height: 25px;
+    letter-spacing: 0.3px;
+    color: var(--color-text);
+}
 
 
 

@@ -190,6 +190,24 @@ div.botoes-conexoes-account span.btn_seguir{
 
 header ul.mobile{
     display: none;
+    transition: all 0.3s ease;
+}
+
+
+.open{
+ display: block;   
+}
+
+.icon-close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.icon-close i{
+    font-size: 2em;
+    color: var(--dominante-color);
 }
 
 
@@ -494,38 +512,21 @@ table {
     background-position: center;
    }
 
-.overlay_top{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    border-radius: 12px 12px 0px 0px;
-    background: rgba(0,0,0,0.3);
-   }
-
-
-
-   section.turmas .turma-single h3{
+   section.turmas .turma-single h2{
       line-height: 30px;
-      position: relative;
-      z-index: 3;
+      color: #c9c9c9;
    }
 
    section.turmas .turma-single p{
     font-size: 15px;
     font-weight: normal;
-    position: relative;
-      z-index: 3;
+ 
    }
 
    section.turmas .turma-single a{
       font-size: 16px;
       font-weight: bolder;
-      position: relative;
-      z-index: 3;
-      columns: #fff;
+      color: var(--body-color);
    }
 
    section.turmas .turma-single a:hover{
@@ -540,7 +541,6 @@ table {
      position: absolute;
      top: 60%;
      right: 20px;
-     z-index: 2;
    }
 
    div.perfil-docente img{
@@ -887,12 +887,11 @@ div.nome-colega p{
 }
 
 section.sala-content{
-position: relative;
-left: 250px;
-width: calc(100% - 250px);
-height: auto;
-padding: 30px;
-
+    position: relative;
+    left: 250px;
+    width: calc(100% - 250px);
+    height: auto;
+    padding: 30px;
 }
 
 
@@ -934,22 +933,16 @@ padding-left: 12px;
     top: 20px;
     padding-left:12px;
     color: var(--dominante-color);
-    position: relative;
-    z-index: 2;
 }
 
 .banner-turma  p{
     font-size: 14px;
     color: var(--dominante-color);
-    position: relative;
-    z-index: 2;
 }
 
 div.content-banner h2{
     font-size: 25px;
     color: var(--dominante-color);
-    position: relative;
-    z-index: 2;
 }
 
 div.content-banner h3{
@@ -957,8 +950,6 @@ div.content-banner h3{
     font-size: 17px;
     font-weight: normal;
     color: var(--dominante-color);
-    position: relative;
-    z-index: 2;
 }
 
 
@@ -1334,6 +1325,7 @@ div.comentario-post{
   position: relative;
   padding: 10px;
   height: auto;
+  border-top: 1px solid #ccc;
 }
 
 
@@ -1936,13 +1928,12 @@ div.row-vagas-single{
     width: 100px;
     height: 50px;
     margin-inline: auto;
-    background: red;
 }
 
 .vagas-top img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 h3.title-vaga{
@@ -3364,6 +3355,8 @@ div.top-content-vagas form input[type=submit]:hover{
 }
 
 
+
+
 /* -- media screen -- */
 
 
@@ -3373,6 +3366,45 @@ div.top-content-vagas form input[type=submit]:hover{
 
     }
    
+}
+
+@media (max-width:1100px){
+    div.side-turma{
+        display: none;
+    }
+    section.sala-content{
+        width: 100%;
+        left: 0;
+    }
+
+    div.form-comentario form{
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+    div.form-comentario form input[type=text]{
+        width: 100%;
+        margin: 10px;
+    }
+
+    div.row-file{
+        flex-wrap: wrap;
+    }
+
+    .info-file{
+        width: 100%;
+        left: none;
+    }
+
+    div.post-bottom{
+        height: auto;
+    }
+
+    div.banner-perfil-single-conexao{
+        margin-inline: auto;
+        background: red;
+    }
 }
 
 @media (max-width:1035px){
@@ -3397,9 +3429,15 @@ div.top-content-vagas form input[type=submit]:hover{
 
 
    @media (max-width:950px){
+    
     section.side-forum .row{
         flex-wrap: wrap;
     }
+
+    .perfil_resposta{
+        display: none;
+        background: red;
+     }
 
     section.side-forum .row .single h3{
         width: 100%;
@@ -3422,6 +3460,38 @@ div.top-content-vagas form input[type=submit]:hover{
 
     .icon i{
         font-size: 30px;
+    }
+
+      header ul.mobile{
+        position: fixed;
+        text-align: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 200000000;
+        background: var(--secundary-color);
+    }
+
+    header ul.mobile li{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        position: relative;
+        top: 150px;
+    }
+
+    header ul.mobile a{
+        padding: 10px;
+        font-size: 1.2em;
+        transition: all 0.3s ease;
+        border-radius: 20px;
+    }
+
+    header ul.mobile a:hover{
+        background: var(--dominante-color);
+        color: var(--secundary-color);
     }
 
     /* Alumin meedia screen */
@@ -3458,14 +3528,35 @@ div.top-content-vagas form input[type=submit]:hover{
         width: 100%;
         z-index: 9;
     }
+
+    section.turmas .turma-single{
+        width: 100%;
+        margin-inline: auto;
+    }
    
    }
 
+
+
+   @media (max-width:830){
+     table tr,td{
+        display: block;
+        text-align: center;
+     }
+
+     
+   }
 
    @media (max-width:739px){
     
     .conexao-single{
         width: 48%;
+    }
+   }
+
+   @media (max-width:730px){
+    div.comentario-post{
+        border-top: none;
     }
    }
 

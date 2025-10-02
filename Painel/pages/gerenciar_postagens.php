@@ -43,8 +43,8 @@ if(isset($_GET['deletar'])){
   $sql = $pdo->prepare("INSERT INTO `tb_site.noticias_alumin` VALUES (null,?,?,?,?,?)");
   if($sql->execute(array($estudante_id['id'],$video['name'],$imagem['name'],$noticia,$date))){
     $lastId = $pdo->lastInsertId();
-    $recentes = $pdo->prepare("INSERT INTO `tb_site_noticias.recentes` VALUES (null,?,?,?,?,?)");
-    $recentes->execute(array(@$lastId,$estudante_id['id'],$noticia,$imagem['name'],$date));
+    $recentes = $pdo->prepare("INSERT INTO `tb_site_noticias.recentes` VALUES (null,?,?,?,?,?,?)");
+    $recentes->execute(array(@$lastId,$estudante_id['id'],$noticia,$imagem['name'],$video['name'],$date));
     \Painel::mensagem('sucesso','Noticia cadastrada com sucesso!');
 
   }else{

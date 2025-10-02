@@ -455,12 +455,20 @@ const swiper = new Swiper('div.conexao-piaget .swiper', {
 });
 
 
+let icon = document.querySelector(".icon");
+let close = document.querySelector('.icon-close');
+let menu = document.querySelector("ul.mobile");
 
 
+icon.addEventListener('click',()=>{
+    menu.style.display = 'block';
+});
+
+close.addEventListener("click",()=>{
+    menu.style.display = 'none'
+});
 
 
-
-     
     
     
 </script>

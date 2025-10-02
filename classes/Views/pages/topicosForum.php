@@ -21,7 +21,7 @@
  <div class="forum-section" style="padding:20px">
     
   <div class="cadastrar-curso"> 
-    <h3 style="color:#fff;font-size:20px;font-weight:normal">Curso de : <?php echo $nome_curso['nome'] ?></h3>
+    <h3 style="color:#fff;font-size:20px;font-weight:normal;text-align:center">Curso de : <?php echo $nome_curso['nome'] ?></h3>
   </div><!--cadastrar-curso-->
 
   <div class="cadastrar-curso"> 

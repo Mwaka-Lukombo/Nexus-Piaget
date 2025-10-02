@@ -19,7 +19,7 @@ $url = explode('/',@$_GET['url'])[0];
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/logo.webp">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/forum_1900.css">
+    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/forum_2100.css">
     <script src="https://kit.fontawesome.com/83f5ffa4ac.js" crossorigin="anonymous"></script>
     
 </head>
@@ -73,24 +73,35 @@ $url = explode('/',@$_GET['url'])[0];
 
     
     <ul class="mobile right">
+
+    <div class="icon-close">
+      <i class="fa fa-times"></i>
+    </div><!--icon-close-->
         <li>
-            <a href="campus">Home</a>
+            <a href="<?php echo INCLUDE_PATH ?>campus">Home</a>
+        </li>
+        <li>
+            <a href="<?php echo INCLUDE_PATH ?>comunidade" <?php \Painel::verifica('comunidade'); ?>>Comunidade</a>
         </li>
 
         <li>
-            <a href="comunidade">Comunidade</a>
+            <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
         </li>
 
         <li>
-            <a href="noticias">Notícias</a>
+            <a href="<?php echo INCLUDE_PATH ?>assistencia  " <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
         </li>
 
         <li>
-            <a href="forum">Fórum</a>
+            <a href="<?php echo INCLUDE_PATH ?>forum" <?php \Painel::verifica('forum'); ?>>Fórum</a>
         </li>
 
         <li>
-            <a href="turma">Turma</a>
+            <a href="<?php echo INCLUDE_PATH ?>turma" <?php \Painel::verifica('turma'); ?>>Turma</a>
+        </li>
+
+        <li>
+            <a href="?logout"><i class="fa fa-power-off"></i></a>
         </li>
     </ul>
 

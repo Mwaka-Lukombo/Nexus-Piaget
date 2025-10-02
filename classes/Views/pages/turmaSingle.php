@@ -214,6 +214,8 @@ $id_turma = explode('/',$_GET['url'])[1];
    <div class="info-file right">
       <p><?php echo $videos['nome_documento'];  ?></p>
    </div><!--info-file-->
+
+   <div class="clear"></div>
   </div><!--file-single-->
 <?php } ?>
 
@@ -255,7 +257,7 @@ $id_turma = explode('/',$_GET['url'])[1];
 <?php
   
 ?>
-<div class="comentario-post" style="border-top:1px solid #ccc">
+<div class="comentario-post">
 
   <?php
     foreach($arr['controller']->listarComentario($value['id']) as $key => $comentario){

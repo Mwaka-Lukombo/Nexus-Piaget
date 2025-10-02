@@ -261,9 +261,21 @@
           foreach($recente as $key => $value){
         ?>
           <div class="post-single-content">
+
+         
             <div class="left-single">
+               <?php 
+                if($value['imagem']){
+              ?>
               <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/imagens/<?php echo $value['imagem']; ?>" />
+              <?php }else if($value['video']) { ?>
+                   <video muted autoplay controls loop>
+                    <source src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/videos/<?php echo $value['video']; ?>" type="video/mp4">
+                    <source src="mov_bbb.ogg" type="video/ogg">
+                  </video>
+              <?php } ?>
             </div><!--left-single--> 
+           
 
             <div class="right-single">
               <h3 style="font-size:14px;text-align:center"><?php echo $value['descricao'] ?>

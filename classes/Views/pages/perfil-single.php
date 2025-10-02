@@ -108,7 +108,7 @@ $total_seguidores = count($seguidores);
 </div><!--overlay-mensagem-->
 <div class="container" style="margin-top:50px">
   <section class="perfil-single-content">
-   <div class="row-content-perfil-single w80"> 
+   <div class="row-content-perfil-single w100"> 
     <div class="perfil-content">
       <div class="banner-perfil-single-conexao" style="background-image:url(<?php echo INCLUDE_PATH_PAINEL ?>banner_perfil/<?php echo $perfil['banner_perfil']; ?>);background-size:cover;background-position:center;background-repeat:no-repeat">
         <div class="avatar-perfil-conexao">

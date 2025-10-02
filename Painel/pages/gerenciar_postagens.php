@@ -60,7 +60,7 @@ if(isset($_GET['deletar'])){
      $descricao = $_POST['descricao'];
      $curso = $_POST['curso'];     
      $link = $_POST['link_site'];
-     $data = date("Y-d-m H:i");
+       $data = date('Y-m-d H:i:s');
 
      $ok = true;
      $dirVaga = "ficheiros_noticias/vagas/";
@@ -72,15 +72,18 @@ if(isset($_GET['deletar'])){
 
 
 
-     // if($ok){
-     //   move_uploaded_file($capa_vaga['tmp_name'],$dirVaga.$capa_vaga['name']);
-     //   $sql = \Mysql::conectar()->prepare("INSERT INTO `tb_site.vagas` VALUES (null,?,?,?,?,?,?,?)");
-     //   if($sql->execute(array($estudante_id,$titulo,$link,$curso,$capa_vaga['name'],$descricao,$data))){
-     //     \Painel::mensagem("sucesso","Vaga cadastrada com sucesso!");
-     //   }else{
-     //     \Painel::mensagem("erro","Falha ao cadastrar vaga!");
-     //   }
-     // }
+     if($ok){
+       move_uploaded_file($capa_vaga['tmp_name'],$dirVaga.$capa_vaga['name']);
+       $sql = $pdo->prepare("INSERT INTO `tb_site.vagas` VALUES (null,?,?,?,?,?,?,?)");
+       if($sql->execute(array($estudante_id,$titulo,$link,$curso,$capa_vaga['name'],$descricao,$data))){
+          $lastIdVaga = $pdo->lastInsertId();
+          $sql = $pdo->prepare("INSERT INTO `tb_site.vagas_recentes` VALUES (null,?,?,?,?)");
+          $sql->execute(array($titulo,$descricao,$capa_vaga['name'],$data));
+         \Painel::mensagem("sucesso","Vaga cadastrada com sucesso!");
+       }else{
+         \Painel::mensagem("erro","Falha ao cadastrar vaga!");
+       }
+     }
    
 
  }

@@ -255,23 +255,19 @@
      
       <div class="row-noticias-recentes">      
         <?php
-          $recentes = \Mysql::conectar()->prepare("SELECT * FROM `tb_site_noticias.recentes` ORDER BY data asc LIMIT 2");
+          $recentes = \Mysql::conectar()->prepare("SELECT * FROM `tb_site_noticias.recentes` ORDER BY data desc LIMIT 2");
           $recentes->execute();
           $recente = $recentes->fetchAll();
           foreach($recente as $key => $value){
-            $capa_noticia = \Mysql::conectar()->prepare("SELECT imagem FROM `tb_site.noticias_alumin` WHERE id = ?");
-            $capa_noticia->execute(array($value['noticia_id']));
-
-
         ?>
           <div class="post-single-content">
             <div class="left-single">
-              <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/imagens/<?php echo $capa_noticia ?>" />
+              <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/imagens/<?php echo $value['imagem']; ?>" />
             </div><!--left-single--> 
 
             <div class="right-single">
-              <h3 style="font-size:14px;text-align:center">A Cornelder esta a recutar novos estagiarios, se estas interessado entre em contacto comigo
-                <span class="data-noticia-single"><?php echo date('d/M/Y') ?></span>
+              <h3 style="font-size:14px;text-align:center"><?php echo $value['descricao'] ?>
+                <span class="data-noticia-single"><?php echo $value['data'] ?></span>
               </h3>
             </div><!--right-single-->
           </div><!--post-single-content-->
@@ -284,16 +280,24 @@
       <div class="row-vagas-recentes">
          <p class="vagas-text">Vagas recentes:</p>
 
-         <div class="row-vagas-single">
+         <?php
+         $vagas = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.vagas_recentes` ORDER BY data desc LIMIT 1");
+         $vagas->execute();
+         $vaga = $vagas->fetchAll();
+         foreach($vaga as $key => $value){
+?>       <div class="row-vagas-single">
            <div class="vagas-top">
-            <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/imagens/1669790342.png" />
+            <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/vagas/<?php echo $value['imagem']; ?>" />
            </div><!--vagas-top--> 
 
            <div class="vagas-description">
-            <h3 class="title-vaga">Cornelder 2025</h3>
-             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque libero qui sit commodi deleniti. Reiciendis illum explicabo hic odit laborum? Soluta .</a>
+            <h3 class="title-vaga"><?php echo $value['titulo']; ?></h3>
+             <a href="#"><?php echo $value['descricao']; ?></a>
            </div><!--vagas-description-->
          </div><!--row-vagas-single-->
+          <?php } ?>
+
+
       </div><!--row-vagas-recentes-->
 
     </div><!--sugestoes-links-->

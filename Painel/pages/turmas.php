@@ -1,3 +1,7 @@
+<?php 
+
+  if($_SESSION['cargo'] == 1){
+?>
 
 <?php
 
@@ -27,6 +31,22 @@ if(isset($_POST['criar_turma'])){
   }
 }
 
+
+
+if(isset($_GET['apagar'])){
+  $idDeletar = (int)$_GET['apagar'];
+
+  $sql = \Mysql::conectar()->prepare("DELETE FROM `tb_site.turma` WHERE id = ?");
+  if($sql->execute(array($idDeletar))){
+    \Painel::mensagem("sucesso","Turma excluida com sucesso!");
+  }
+  //materia
+  \Mysql::conectar()->exec("DELETE FROM `tb_site.turma_materia` WHERE turma_id = $idDeletar");
+
+  //Comentario
+  \Mysql::conectar()->exec("DELETE FROM `tb_site.turma_comentario` WHERE turma_id = $idDeletar");
+  \Painel::redirectJS(INCLUDE_PATH_PAINEL.'turmas');
+}
 
 ?>
 
@@ -108,7 +128,6 @@ if(isset($_POST['criar_turma'])){
           <p>Ano: <?php echo $value['ano'].'º'; ?></p>
           <div class="button-content">
             <a href="<?php echo INCLUDE_PATH_PAINEL ?>turmas/?Turma=<?php echo $value['id'] ?>" style="background:lightblue"><i class="fa fa-eye"></i> Acessar </a>
-            <a href="<?php echo INCLUDE_PATH_PAINEL ?>turmas/?editar=<?php echo $value['id'] ?>" style="background:orange"><i class="fa fa-pencil"></i> Editar</a>
             <a href="<?php echo INCLUDE_PATH_PAINEL ?>turmas/?apagar=<?php echo $value['id'] ?>" style="background:tomato"><i class="fa fa-trash"></i> Deletar</a>
           </div><!--button-content-->
       </div>
@@ -140,6 +159,14 @@ $turma = $turma->fetch();
        </div><!--info-turma-painel-->
     </div>
   </div><!--banner-turma-painel-->
+  
+
+  <!-- Content-postagem -->
+    <div class="content-postagem">
+      <form method="post">
+        
+      </form>
+   </div><!--content-postagem-->
 
 
   <?php
@@ -224,3 +251,9 @@ $turma = $turma->fetch();
 </div><!--content-turma-painel--->
 
 <?php } ?>
+
+<?php }else{ ?>
+    <?php 
+     include ('pages/erro_404.php');
+    ?>
+ <?php } ?>

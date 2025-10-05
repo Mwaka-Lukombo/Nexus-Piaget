@@ -28,7 +28,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
   <title>Painel de Controle</title>
   
   <!-- link do css -->
-   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_1200.css">
+   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_7000.css">
    <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/Logo.webp">
    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -80,6 +80,19 @@ $nome = explode(" ",$_SESSION['nome'])[0];
       <span>Funcionários</span>
     </div><!--items-single-->
     <?php } ?>
+
+     <?php 
+   if($_SESSION['cargo'] == 3){
+ ?>
+    <div class="items-single <?php if($url == 'cursos') print 'selected' ?>">
+      <a href="<?php echo INCLUDE_PATH_PAINEL ?>cursos"><i class="fa fa-graduation-cap"></i></a>
+      <span>Cursos</span>
+    </div><!--items-single-->
+    <?php } ?>
+
+  
+
+    
 
 <?php
   if($_SESSION['cargo'] == 2 || $_SESSION['cargo'] == 1){
@@ -167,9 +180,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
     if(file_exists('pages/'.$url.'.php')){
       include ('pages/'.$url.'.php');
     }else{
-      print '<h4>404</h4>
-         <p>Pagina nao encontrada</p>
-      ';
+      include ('pages/erro_404.php');
     }
 
 ?>

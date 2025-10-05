@@ -54,10 +54,7 @@ $url = explode('/',@$_GET['url'])[0];
             <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
         </li>
 
-        <li>
-            <a href="<?php echo INCLUDE_PATH ?>assistencia  " <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
-        </li>
-
+    
         <li>
             <a href="<?php echo INCLUDE_PATH ?>forum" <?php \Painel::verifica('forum'); ?>>Fórum</a>
         </li>
@@ -86,10 +83,6 @@ $url = explode('/',@$_GET['url'])[0];
 
         <li>
             <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
-        </li>
-
-        <li>
-            <a href="<?php echo INCLUDE_PATH ?>assistencia  " <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
         </li>
 
         <li>

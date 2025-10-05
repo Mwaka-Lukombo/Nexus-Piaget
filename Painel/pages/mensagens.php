@@ -1,3 +1,7 @@
+
+<?php
+  if($_SESSION['cargo'] == 2){
+?>
 <?php
 
 
@@ -77,4 +81,10 @@
     <input type="submit" name="acao" value="Chat">
   </form>
  </div><!--chat-single--box-->
+<?php } ?>
+
+<?php }else{ ?>
+     <?php
+      include('pages/erro_404.php');
+     ?>
 <?php } ?>

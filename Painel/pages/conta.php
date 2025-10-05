@@ -1,10 +1,6 @@
 <?php
 
-  if($_SESSION['cargo'] < 2){
-    \Painel::redirectJS(INCLUDE_PATH_PAINEL);
-  }
-
-
+  if($_SESSION['cargo'] == 2){
 ?>
 
 
@@ -84,3 +80,9 @@
   </div><!--form-group-->
  </form>
 </div><!--box-content-->
+
+<?php }else{ ?>
+    <?php
+      include('pages/erro_404.php');
+    ?>
+<?php } ?>  

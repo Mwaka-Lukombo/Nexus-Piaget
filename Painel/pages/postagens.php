@@ -1,3 +1,33 @@
+<style>
+  .deletar_admin{
+    display:inline-block;
+    text-align:center;
+    line-height:30px;
+    color:white;
+    font-size:1.2em;
+    width: 50px;
+    height:30px;
+    background:#9b1315;
+    transition:all 0.3s ease;
+  }
+
+  .deletar_admin:hover{
+    background:#751314;
+  }
+</style>
+
+<?php
+ if(isset($_GET['noticia'])){
+   $idDelete = (int)$_GET['noticia'];
+
+   $sql = \Mysql::conectar()->prepare("DELETE FROM `tb_site.noticias_alumin` WHERE id = ?");
+   if($sql->execute(array($idDelete))){
+     \Painel::mensagem("sucesso","Noticia excluida com sucesso!");
+     \Painel::redirectJS(INCLUDE_PATH_PAINEL.'postagens');
+   }
+ }
+?>
+
 <section class="noticias">
    
   <?php  
@@ -13,6 +43,12 @@
      $estudante = $estudante->fetch();
    ?>
    <div class="noticia-sigle">
+    
+    <?php 
+    if($_SESSION['cargo'] == 3){
+   ?>
+    <a href="<?php echo INCLUDE_PATH_PAINEL ?>postagens/?noticia=<?php echo $value['id']; ?>" class="deletar_admin"><i class="fa fa-trash"></i></a>
+   <?php } ?>
   <div class="flex">
     <div class="noticia-left">  
       <div class="perfil">

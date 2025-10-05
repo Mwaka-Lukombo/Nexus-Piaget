@@ -1,3 +1,10 @@
+<?php 
+
+  
+ if($_SESSION['cargo'] == 2){
+
+?>
+
 <?php
 $estudante_id = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudantes_antigos` WHERE email = ?");
 $estudante_id->execute(array($_SESSION['email']));
@@ -215,3 +222,8 @@ if(isset($_GET['deletar'])){
   </div><!--gerenciar-row-->
 
       </div><!--content-->
+    <?php  }else{ ?>
+         <?php 
+          include('pages/erro_404.php');
+         ?>
+     <?php  } ?>

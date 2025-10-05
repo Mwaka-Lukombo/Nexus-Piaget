@@ -1,12 +1,37 @@
+<?php
 
-<section class="base">
+
+  if($_SESSION['cargo'] == 3){
+
+?>
+<!-- <section class="base">
   <p><i class="fa fa-check"></i> Usuario cadastrado com sucesso! </p>
-</section>
+</section> -->
+
+<?php
+
+ if(isset($_GET['apagar'])){
+   $idFuncionario = (int)$_GET['apagar'];
+
+   $sql = \Mysql::conectar()->prepare("DELETE FROM `tb_site.funcionarios` WHERE id = ?");
+   if($sql->execute(array($idFuncionario))){
+     \Painel::mensagem("sucesso","Usuario excluido com sucesso!");
+     \Painel::redirectJS(INCLUDE_PATH_PAINEL.'funcionarios');
+   }
+ }
+
+?>
+
+
 <div class="box-content">
+  <?php
+    if(!isset($_GET['editar'])){
+  ?>
   <div class="wellcome">
     <h3>Funcionários</h3>
   </div><!--wellcome-->
 
+  
   <form method="post">
     <div class="form-group">
         <label for="nome">Nome completo:</label>
@@ -40,13 +65,83 @@
       <input type="submit" name="acao">
     </div><!--form-group-->
   </form>
+  <?php }else{ ?>
+
+     <?php
+    if(isset($_POST['atualizar_edit'])){
+       $id = (int)$_GET['editar'];
+       $nome = $_POST['nome_edit'];
+       $email = $_POST['email_edit'];
+       $newPassword = "";
+       $currentPassword = $_POST['current_password'];
+       $password = $_POST['password_edit'];
+
+       if($password == ""){
+         $newPassword = $currentPassword;
+       }else{
+         $newPassword = $password;
+       }
+      
+       //update no banco
+       $sql = \Mysql::conectar()->prepare(" UPDATE `tb_site.funcionarios` SET nome = ?, email = ?, senha = ? WHERE id = ?");
+       if($sql->execute(array($nome,$email,$newPassword,$id))){
+        \Painel::mensagem("sucesso","Usuario editado com sucesso!");
+       }else{
+         echo '<script>alert("Falhao ao editar funcionario!")</script>';
+       }
+
+    }
+  ?>
+  <br />
+    <div class="wellcome">
+    <h3><i class="fa fa-pencil"></i> Editar Funcionario</h3>
+  </div><!--wellcome-->
+
+ 
+
+  <?php 
+    $id = (int)$_GET['editar'];
+    $funcionario = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE id = ?");
+    $funcionario->execute(array($id));
+    $value = $funcionario->fetch();
+  ?>
+
+     <form method="post">
+      <div class="form-group">
+        <label for="Nome">Nome Completo:</label>
+        <input type="text" name="nome_edit" value="<?php echo $value['nome']; ?>" />
+      </div><!--form-group-->
+
+      <div class="form-group">
+        <label for="Email">Email:</label>
+        <input type="text" name="email_edit" value="<?php echo $value['email']; ?>" />
+      </div><!--form-group-->
+
+      <div class="form-group">
+        <label for="cargo">Cargo:</label>
+        <select name="cargo">
+         <option value="<?php echo $value['id']; ?>" disabled selected><?php echo cargos[$value['cargo']]; ?></option>
+       </select>
+      </div><!--form-group-->
+
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password_edit" />
+        <input type="hidden" name="current_password" value="<?php echo $value['senha'] ?>" />
+      </div><!--form-group-->
+
+      <div class="form-group">
+        <input type="submit" name="atualizar_edit" value="Atualizar"  />
+      </div><!--form-group-->
+    </form>
+   <?php } ?>
 
 </div><!--box-content-->
 
 <div class="box-content" style="margin-top:20px;background:transparent">
  <div class="flex">
   <?php 
-    $sql = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios`");
+    $sql = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE cargo != 3");
     $sql->execute();
     $sql = $sql->fetchAll();
     foreach($sql as $id => $value){
@@ -85,3 +180,9 @@
   </div><!--paginator-->
 </div>
 </div><!--box-content-->
+
+<?php }else{ ?>
+     <?php 
+       include('pages/erro_404.php');
+     ?>
+<?php   } ?>

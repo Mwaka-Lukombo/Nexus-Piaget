@@ -1,5 +1,11 @@
 
 <?php
+
+ if($_SESSION['cargo'] == 1 || $_SESSION['cargo'] == 2){
+
+?>
+
+<?php
  $idCurso = (int)@$_GET['Singleid'];
 
 
@@ -52,6 +58,8 @@ if(isset($_POST['cadastar_topico'])){
 }
 
 ?>
+
+
 <div class="box-content" style="margin-bottom:10px">
   <div class="wellcome">
     <h3>Cadastrar Foruns</h3>
@@ -214,8 +222,8 @@ if(isset($_POST['cadastar_topico'])){
 <?php } ?>
 
 
-<script>
-
-
-
-</script>
+<?php }else{ ?>
+   <?php
+     include('pages/erro_404.php');
+   ?>
+ <?php  } ?>

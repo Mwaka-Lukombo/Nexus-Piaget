@@ -4,6 +4,31 @@
 <?php 
   if($_SESSION['cargo'] == 3){
 ?>
+
+<?php
+$alunos = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudantes`");
+$alunos->execute();
+$alunos = $alunos->fetchAll();
+
+
+$funcionarios = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE cargo != 2");
+$funcionarios->execute();
+$funcionarios = $funcionarios->fetchAll();
+
+
+$usuarios = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios`");
+$usuarios->execute();
+$usuarios = $usuarios->fetchAll();
+
+$estudantes = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE cargo = 2");
+$estudantes->execute();
+$estudantes = $estudantes->fetchAll();
+
+
+
+
+
+?>
   <div class="row">
 
     <div class="box-single">
@@ -11,14 +36,16 @@
         <div class="avatar" style="background:tomato">
          <i class="bx bx-line-chart"></i>
         </div>
-        <span>Usuários online</span>
-        <h2>12</h2>
+        <span>Alunos</span>
+        <h2><?php echo(count($alunos)); ?></h2>
       </div><!--top-->
 
       <div class="bottom">
-        <p>Nas últimas 24 horas</p>
+        <p>Nos últimos 30 dias</p>
       </div><!--bottom-->
     </div><!--box-single-->
+
+    
 
     
     <div class="box-single">
@@ -26,8 +53,8 @@
         <div class="avatar" style="background:darkred">
          <i class="bx bx-chart"></i>
         </div>
-        <span>Total de visitas</span>
-        <h2>25</h2>
+        <span>Total de Ex estudantes</span>
+        <h2><?php echo(count($estudantes)) ?></h2>
       </div><!--top-->
 
       <div class="bottom">
@@ -41,14 +68,32 @@
         <div class="avatar" style="background:lightgreen">
          <i class="bx bx-line-chart"></i>
         </div>
-        <span>Usuários online</span>
-        <h2>12</h2>
+        <span>Funcionarios</span>
+        <h2><?php echo(count($funcionarios)) ?></h2>
       </div><!--top-->
 
       <div class="bottom">
-        <p>Nas últimas 24 horas</p>
+        <p>Nos últimos 30 dias</p>
       </div><!--bottom-->
     </div><!--box-single-->
+
+    <div class="box-single" style="width:50%;margin-inline:auto;text-align:center">
+      <div class="top">
+        <div class="avatar" style="margin-inline:auto;background:yellow">
+         <i class="bx bx-chart"></i>
+        </div>
+        <span>Total de Usuarios</span>
+        <h2><?php echo(count($alunos)+count($funcionarios)) ?></h2>
+      </div><!--top-->
+
+      <div class="bottom">
+        <p>Nos últimos 30 dias</p>
+      </div><!--bottom-->
+    </div><!--box-single-->
+
+    
+
+   
 
     
 

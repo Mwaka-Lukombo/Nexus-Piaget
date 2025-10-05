@@ -428,15 +428,16 @@ div.box-content{
 
 div.box-content .row{
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 
 
 div.box-single{
-    width: 33%;
+    width: 32%;
     height: auto;
     border-radius: 25px;
     padding: 20px;
-    margin: 0 12px;
     background: var(--sidebar-color);
 }
 
@@ -1531,10 +1532,14 @@ h3.title-Single::before{
 
 /* content-nexus-wellcome */
 .content-nexus-wellcome{
+    display: flex;
+    align-items: center;
     width: 100%;
+    min-height: 400px;
     background: var(--sidebar-color);
     position: relative;
     top: 30px;
+    border-radius: 20px;
 }
 
 .row-wellcome{
@@ -1608,6 +1613,35 @@ h3.title-Single::before{
 }
 
 
+
+/* content-error 404 */
+.content-error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 700px;
+    width: 90%;
+    height: 300px;
+    margin: 50px auto;
+    border-radius: 20px;
+    background: var(--sidebar-color);
+}
+
+.content-error h2{
+    font-size: 2em;
+    padding-bottom: 8px;
+    color: var(--secundary-color );
+}
+
+
+/* assistence-row */
+.content-postagem{
+    width: 100%;
+    height: 40px;
+    background: var(--sidebar-color);
+    margin-top: 20px;
+}
 
 
 

@@ -1638,9 +1638,40 @@ h3.title-Single::before{
 /* assistence-row */
 .content-postagem{
     width: 100%;
-    height: 40px;
-    background: var(--sidebar-color);
+    padding: 20px;
+    background:var(--sidebar-color);
     margin-top: 20px;
+}
+
+.row-elements{
+    display: flex;
+    gap: 1em;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.single-element{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32%;
+    height: 40px;
+    background: var(--body-color);
+    transition: all 0.3s ease;
+}
+
+.single-element a{
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.single-element:hover{
+    background: var(--hover);
+}
+
+.single-element:hover a{
+    color: #fff;
 }
 
 

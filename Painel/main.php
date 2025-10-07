@@ -28,7 +28,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
   <title>Painel de Controle</title>
   
   <!-- link do css -->
-   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_7000.css">
+   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_7400.css">
    <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/Logo.webp">
    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -60,6 +60,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>postagens"><i class="bx bx-news"></i></a>
       <span>Post's</span>
     </div><!--items-single-->
+    
    
 
    <?php 
@@ -81,12 +82,22 @@ $nome = explode(" ",$_SESSION['nome'])[0];
     </div><!--items-single-->
     <?php } ?>
 
+
      <?php 
    if($_SESSION['cargo'] == 3){
  ?>
     <div class="items-single <?php if($url == 'cursos') print 'selected' ?>">
       <a href="<?php echo INCLUDE_PATH_PAINEL ?>cursos"><i class="fa fa-graduation-cap"></i></a>
       <span>Cursos</span>
+    </div><!--items-single-->
+    <?php } ?>
+
+     <?php 
+   if($_SESSION['cargo'] == 3){
+ ?>
+    <div class="items-single <?php if($url == 'suporte') print 'selected' ?>">
+      <a href="<?php echo INCLUDE_PATH_PAINEL ?>suporte"><i class="fa-solid fa-headset"></i></a>
+      <span>Suporte</span>
     </div><!--items-single-->
     <?php } ?>
 

@@ -19,7 +19,7 @@ $url = explode('/',@$_GET['url'])[0];
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/logo.webp">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/forum_2100.css">
+    <link rel="stylesheet" href="<?php echo INCLUDE_PATH ?>css/forum_2200.css">
     <script src="https://kit.fontawesome.com/83f5ffa4ac.js" crossorigin="anonymous"></script>
     
 </head>
@@ -54,7 +54,10 @@ $url = explode('/',@$_GET['url'])[0];
             <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
         </li>
 
-    
+         <li>
+            <a href="<?php echo INCLUDE_PATH ?>assistencia" <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
+        </li>
+
         <li>
             <a href="<?php echo INCLUDE_PATH ?>forum" <?php \Painel::verifica('forum'); ?>>Fórum</a>
         </li>
@@ -83,6 +86,10 @@ $url = explode('/',@$_GET['url'])[0];
 
         <li>
             <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
+        </li>
+
+         <li>
+            <a href="<?php echo INCLUDE_PATH ?>assistencia" <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
         </li>
 
         <li>

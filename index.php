@@ -25,6 +25,8 @@ $turmaController = new \Controllers\turmaController;
 $turmaSingleController = new \Controllers\turmaSingleController;
 $oldChatController = new \Controllers\oldChatController;
 $vagasController = new \Controllers\vagasController;
+$assistenciaController = new \Controllers\assistenciaController;
+$assintenciaSingle = new \Controllers\assistenciaSingle;
 
 
 
@@ -78,10 +80,6 @@ Router::get('/solicitacoes',function() use ($solicitacoesController){
     $solicitacoesController->index();
 });
 
-Router::get('/assistencia',function() use ($assistenciaController){
-      $assistenciaController->index();
-});
-
 Router::get('/resposta',function() use ($respostaController){
       $respostaController->index();
 });
@@ -114,4 +112,12 @@ Router::get('/turma/?/?',function($par) use ($editarTurmaController){
 
 Router::get('mensagem_alumin/?',function() use($oldChatController){
    $oldChatController->index();
+});
+
+Router::get('/assistencia',function() use ($assistenciaController){
+      $assistenciaController->index();
+});
+
+Router::get('/assistencia/?',function() use ($assintenciaSingle){
+ $assintenciaSingle->index();
 });

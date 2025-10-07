@@ -159,12 +159,86 @@ $turma = $turma->fetch();
        </div><!--info-turma-painel-->
     </div>
   </div><!--banner-turma-painel-->
+
+  <?php 
+
+  if(isset($_POST['acao'])){
+    session_start();
+    $id = $_SESSION['id']; // docente_id
+    $turmaId = (int)$_GET['Turma'];
+    $descricao = $_POST['descricao'];
+
+    // Diretórios
+    $dir_video = INCLUDE_PATH.'ficheiros/videos/';
+    $dir_documentos = INCLUDE_PATH.'ficheiros/documentos/';
+
+    // Conexão
+    $pdo = new PDO("mysql:host=localhost;dbname=nexus","root","", [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+
+    $sql = $pdo->prepare("INSERT INTO `tb_site.turma_materia` 
+        (id, turma_id, docente_id, mensagem) VALUES (null, ?, ?, ?)");
+    if($sql->execute([$turmaId, $id, $descricao])){
+        $lastId = $pdo->lastInsertId();
+
+        if(isset($_FILES['documento'])){
+            foreach($_FILES['documento']['tmp_name'] as $key => $tmp_name){
+                $nomeDoc = $_FILES['documento']['name'][$key];
+                $caminhoDoc = $dir_documentos.$nomeDoc;
+
+                if(move_uploaded_file($tmp_name, $caminhoDoc)){
+                    $sqlDoc = $pdo->prepare("INSERT INTO `tb_site.materia_documentos` 
+                        (id, materia_id, estudante_id, nome_documento, funcionario_id) 
+                        VALUES (null, ?, 0, ?, ?)");
+                    $sqlDoc->execute([$lastId, $nomeDoc, $id]);
+                }
+            }
+        }
+
+        if(isset($_FILES['video'])){
+            foreach($_FILES['video']['tmp_name'] as $key => $tmp_name){
+                $nomeVideo = $_FILES['video']['name'][$key];
+                $caminhoVideo = $dir_video.$nomeVideo;
+
+                if(move_uploaded_file($tmp_name, $caminhoVideo)){
+                    $sqlVideo = $pdo->prepare("INSERT INTO `tb_site.materia_videos` 
+                        (id, materia_id, estudante_id, nome_video, funcionario_id) 
+                        VALUES (null, ?, 0, ?, ?)");
+                    $sqlVideo->execute([$lastId, $nomeVideo, $id]);
+                }
+            }
+        }
+
+        \Painel::mensagem("sucesso","Matéria e ficheiros publicados com sucesso!");
+    } else {
+        \Painel::mensagem("erro","Erro ao cadastrar a matéria.");
+    }
+}
+?>
   
 
   <!-- Content-postagem -->
     <div class="content-postagem">
-      <form method="post">
-        
+      <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Video:</label>
+          <input type="file" name="video[]" multiple accept="mp4/*" />
+        </div><!--form-group-->
+
+        <div class="form-group">
+          <label>Ficheiro:</label>
+          <input type="file" name="documento[]" multiple accept=".pdf,.doc,.docx" />
+        </div><!--form-group-->
+
+        <div class="form-group">
+          <label>Descricao:</label>
+          <textarea name="descricao"></textarea>
+        </div><!--form-group-->
+
+        <div class="form-group">
+          <input type="submit" name="acao" />
+        </div><!--form-group-->
       </form>
    </div><!--content-postagem-->
 

@@ -15,6 +15,7 @@
 
  $id_usuario = explode('/',$_GET['url'])[2];
 
+
  $seguidores = $arr['controller']->seguidores($id_to);
 
 
@@ -23,6 +24,9 @@ $total_seguidores = count($seguidores);
  $perfil = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudantes_antigos` WHERE id = ?");
  $perfil->execute(array($id_usuario));
  $perfil = $perfil->fetch();
+
+
+
 
  $dados = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE cargo = 2 AND nome = ?");
  $dados->execute(array($perfil['nome']));
@@ -134,7 +138,7 @@ $total_seguidores = count($seguidores);
               <?php }else{ ?>
                 <a href="<?php echo INCLUDE_PATH ?>alumin/conexoes/<?php echo $perfil['id']; ?>?nSeguir=<?php echo $perfil['id']; ?>" style='border-radius: 20px;background: #c9c9c9;font-size: 13px;font-weight: normal;color: #8A1A20;border:2px solid #721011;' class="btn_seguir"><i class="fa fa-check"></i> A Seguir</a>
                <?php } ?>
-                <a href="<?php echo INCLUDE_PATH ?>mensagem_alumin/<?php echo $perfil['id'] ?>" class="enviar-mensagem">Enviar mensagem</a>
+                <!-- <a href="<?php echo INCLUDE_PATH ?>mensagem_alumin/<?php echo $perfil['id'] ?>" class="enviar-mensagem">Enviar mensagem</a> -->
                 <a href="<?php echo INCLUDE_PATH ?>alumin/conexoes/<?php echo $perfil['id']; ?>/GerarPDF"><i class="fa fa-file-word"></i> PDF</a>
             </div><!--botoes-conexoes-account-->
         </div><!--perfil-content-info-->
@@ -171,7 +175,7 @@ $total_seguidores = count($seguidores);
         $formacao = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudante_antigo_formacao` WHERE estudante_id = ?");
         $formacao->execute(array($perfil['id']));
         $formacao = $formacao->fetch();
-       
+
       ?>
       <div class="formacao-single">
         <div class="icon-geral w10">

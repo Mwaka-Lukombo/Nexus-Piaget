@@ -11,7 +11,18 @@ $problema = $problema->fetch();
 
 $tipo = \Mysql::conectar()->prepare("SELECT nome FROM `tb_site.tipo_assitencia` WHERE id = ?");
 $tipo->execute(array($id));
-$tipo = $tipo->fetch()['nome'];
+$tipo = @$tipo->fetch()['nome'];
+
+//delete resposta
+if(isset($_GET['delete'])){
+  $delete_id = (int)$_GET['delete'];
+  
+  $sql = \Mysql::conectar()->prepare("DELETE FROM `tb_site.assistencia` WHERE id = ?");
+  if($sql->execute(array($delete_id))){
+    \Painel::mensagem("sucesso","Item deletado com sucesso!");
+    \Painel::redirectJS(INCLUDE_PATH.'assistencia');
+  }
+}
 
 ?>
 
@@ -29,11 +40,11 @@ $tipo = $tipo->fetch()['nome'];
 
     <h3>Resposta:</h3>
   <div class="row-pergunta">
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit facere quaerat inventore eos, obcaecati possimus illo unde nisi sapiente ab beatae id ipsam in sit nostrum quisquam repellendus, velit assumenda?
-    Sed itaque temporibus autem blanditiis veniam, libero, quos eius voluptas minima tenetur cumque distinctio harum eum ipsa minus dolor ex sapiente dolorum deserunt totam laborum non corporis hic? Exercitationem, ab.
-    Natus, officiis totam aspernatur temporibus dolorum voluptatem nostrum voluptas in ab voluptatibus omnis quam amet modi voluptates neque ut est explicabo, rerum nam velit odit, fugit nulla? Fugiat, ex quae!Fugiat, ex quae!
-Fugiat, ex quae!
-Fugiat, ex quae!
-</p>
+    <?php
+      $resposta = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.assistencia.resposta` WHERE assistencia_id = ?");
+      $resposta->execute(array($id));
+      $resposta = $resposta->fetch();
+    ?>
+    <p><?php echo $resposta['resposta']; ?></p>
   </div><!--row-pergunta-->
 </div><!--box-content-respostas-->

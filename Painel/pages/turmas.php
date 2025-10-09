@@ -163,57 +163,77 @@ $turma = $turma->fetch();
   <?php 
 
   if(isset($_POST['acao'])){
-    session_start();
-    $id = $_SESSION['id']; // docente_id
-    $turmaId = (int)$_GET['Turma'];
+    $Docente_id = $_SESSION['id']; // docente_id
+    $turmaIdCriar = (int)$_GET['Turma'];
     $descricao = $_POST['descricao'];
+    $videos = $_FILES['videos']['name'];
+    $ficheiros = $_FILES['documentos']['name'];
+    $data = date("Y-m-d H:i:s");
+
+
 
     // Diretórios
-    $dir_video = INCLUDE_PATH.'ficheiros/videos/';
+    
     $dir_documentos = INCLUDE_PATH.'ficheiros/documentos/';
 
-    // Conexão
-    $pdo = new PDO("mysql:host=localhost;dbname=nexus","root","", [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    $ok = true;
 
-    $sql = $pdo->prepare("INSERT INTO `tb_site.turma_materia` 
-        (id, turma_id, docente_id, mensagem) VALUES (null, ?, ?, ?)");
-    if($sql->execute([$turmaId, $id, $descricao])){
-        $lastId = $pdo->lastInsertId();
-
-        if(isset($_FILES['documento'])){
-            foreach($_FILES['documento']['tmp_name'] as $key => $tmp_name){
-                $nomeDoc = $_FILES['documento']['name'][$key];
-                $caminhoDoc = $dir_documentos.$nomeDoc;
-
-                if(move_uploaded_file($tmp_name, $caminhoDoc)){
-                    $sqlDoc = $pdo->prepare("INSERT INTO `tb_site.materia_documentos` 
-                        (id, materia_id, estudante_id, nome_documento, funcionario_id) 
-                        VALUES (null, ?, 0, ?, ?)");
-                    $sqlDoc->execute([$lastId, $nomeDoc, $id]);
-                }
-            }
-        }
-
-        if(isset($_FILES['video'])){
-            foreach($_FILES['video']['tmp_name'] as $key => $tmp_name){
-                $nomeVideo = $_FILES['video']['name'][$key];
-                $caminhoVideo = $dir_video.$nomeVideo;
-
-                if(move_uploaded_file($tmp_name, $caminhoVideo)){
-                    $sqlVideo = $pdo->prepare("INSERT INTO `tb_site.materia_videos` 
-                        (id, materia_id, estudante_id, nome_video, funcionario_id) 
-                        VALUES (null, ?, 0, ?, ?)");
-                    $sqlVideo->execute([$lastId, $nomeVideo, $id]);
-                }
-            }
-        }
-
-        \Painel::mensagem("sucesso","Matéria e ficheiros publicados com sucesso!");
-    } else {
-        \Painel::mensagem("erro","Erro ao cadastrar a matéria.");
+    if($descricao == ""){
+      $ok = false;
+      echo '<script>alert("Nao sao permitidos campos vazios!")</script>';
     }
+
+    $sql = \Mysql::conectar()->prepare("INSERT INTO `tb_site.turma_materia` (id,turma_id,docente_id,mensagem,data) VALUES (null,?,?,?,?)");
+    $sql->execute(array($turmaIdCriar,$Docente_id,$descricao,$data));
+    $lastId = \Mysql::conectar()->lastInsertID();
+
+    if(isset($_FILES['documentos'])){
+      $total = count($videos);
+      $dir_video = '../ficheiros/documentos/';
+
+      for($i = 0; $i < $total; $i++){
+       $Atual = [
+          'tmp_name'=>@$_FILES['documentos']['tmp_name'][$i],
+          'name'=>@$_FILES['documentos']['name'][$i]
+        ];
+
+        if(move_uploaded_file($Atual['tmp_name'],$dir_video.$Atual['name'])){
+          $ok = true;
+          $sql = \Mysql::conectar()->prepare("INSERT INTO `tb_site.materia_documentos` (id,materia_id,nome_documento,funcionario_id) VALUES (null,?,?,?)");
+          $sql->execute(array($lastId,$Atual['name'],$Docente_id));
+        }else{
+          $ok = false;
+        }
+ 
+      }
+    }
+    
+
+    if(isset($_FILES['videos'])){
+      $total = count($videos);
+      $dir_video = '../ficheiros/videos/';
+
+      for($i = 0; $i < $total; $i++){
+       $Atual = [
+          'tmp_name'=>$_FILES['videos']['tmp_name'][$i],
+          'name'=>$_FILES['videos']['name'][$i]
+        ];
+
+        if(move_uploaded_file($Atual['tmp_name'],$dir_video.$Atual['name'])){
+          $ok = true;
+          $sql = \Mysql::conectar()->prepare("INSERT INTO `tb_site.materia_videos` (id,materia_id,nome_documento,funcionario_id) VALUES (null,?,?,?)");
+          $sql->execute(array($lastId,$Atual['name'],$Docente_id));
+        }else{
+          $ok = false;
+        }
+ 
+      }
+      \Painel::mensagem("sucesso","Material enviado com sucesso!");
+    }
+    
+
+
+    
 }
 ?>
   
@@ -221,14 +241,13 @@ $turma = $turma->fetch();
   <!-- Content-postagem -->
     <div class="content-postagem">
       <form method="post" enctype="multipart/form-data">
-        <div class="form-group">
-          <label>Video:</label>
-          <input type="file" name="video[]" multiple accept="mp4/*" />
-        </div><!--form-group-->
-
+       <div class="form-group">
+        <label>Vídeo:</label>
+        <input type="file" name="videos[]" multiple accept="video/mp4" />
+      </div><!--form-group-->
         <div class="form-group">
           <label>Ficheiro:</label>
-          <input type="file" name="documento[]" multiple accept=".pdf,.doc,.docx" />
+          <input type="file" name="documentos[]" multiple accept=".pdf,.doc,.docx" />
         </div><!--form-group-->
 
         <div class="form-group">
@@ -244,17 +263,23 @@ $turma = $turma->fetch();
 
 
   <?php
-  $materia = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.turma_materia` WHERE turma_id = ? ");
+  $materia = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.turma_materia` WHERE turma_id = ? ORDER BY data desc ");
   $materia->execute(array($turmaID));
   $materia = $materia->fetchAll();
    foreach($materia as $key => $materia){
-    $videos = \Mysql::conectar()->prepare("SELECT * from `tb_site.materia_videos` WHERE materia_id = ? AND estudante_id = ?");
-    $videos->execute(array($materia['id'],$materia['estudante_id']));
+    $videos = \Mysql::conectar()->prepare("SELECT * from `tb_site.materia_videos` WHERE materia_id = ? AND funcionario_id = ?");
+    $videos->execute(array($materia['id'],$materia['docente_id']));
     $videos = $videos->fetchAll();
     foreach($videos as $key => $video){
+    $docente = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE id = ?");
+    $docente->execute(array($materia['docente_id']));
+    $docente = $docente->fetch();
+
     $estudante = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudantes` WHERE id_estudante = ?");
     $estudante->execute(array($materia['estudante_id']));
     $estudante = $estudante->fetch();
+
+    if($materia['docente_id'] == 0){
   ?>
   <div class="postagem-painel">
     <div class="left-postagem">
@@ -321,6 +346,74 @@ $turma = $turma->fetch();
       </div><!--button-->
     </div><!--right-postagem-->
    </div><!--postagem-painel-->
+
+   <?php }else{ ?>
+      <div class="postagem-painel">
+    <div class="left-postagem">
+       <div class="video-player">
+         <video>
+           <source src="<?php echo INCLUDE_PATH ?>ficheiros/videos/<?php echo $video['nome_documento']; ?>"></source>
+         </video>
+
+         <div class="menu-player">
+          <div class="flex-menu">
+           <div class="play">
+            <i class="fa fa-play"></i>
+           </div><!--play--> 
+           <div class="tools">
+
+             <div class="tumb">
+               <input type="range" class="barraProgresso" min="1" value="0" step="0.01" />
+                <span class="initFinal">0:09/4:00</span>
+              </div><!--tumb-->
+              
+              <div class="configure-player">
+                <div class="volume-content">
+                  <input type="range" name="volume" min="1" value="1">
+                </div>
+               <span class="volume"><i class="fa-solid fa-volume-high"></i></span>
+               <span class="screen"><i class="fa-solid fa-maximize"></i><span>
+            </div><!--configure-player-->
+
+              
+           </div><!--tools-->
+          </div><!--flex-menu-->
+          </div><!--menu-player-->
+       </div><!--video-player-->
+    </div><!--left-postagem---> 
+    <div class="right-postagem">
+      <div class="perfil-estudante">
+        <div class="perfil-border">
+          <img src="<?php echo INCLUDE_PATH_PAINEL ?>perfil/<?php echo $docente['perfil']; ?>">
+        </div><!--perfil-border-->
+        <div class="info-perfil-postagem">
+          <h3><?php echo $docente['nome']; ?></h3>
+        </div><!--info-perfil-postagem-->
+      </div><!--perfil-estudante-->
+
+      <div class="descricao-postagem">
+        <p><?php echo $materia['mensagem']; ?></p>
+
+        <?php 
+         $documentos = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.materia_documentos` WHERE materia_id = ? ");
+         $documentos->execute(array($materia['id']));
+         $documentos = $documentos->fetchAll();
+         foreach($documentos as $key => $doc){
+        ?>
+
+        <div class="items-postagem">
+          <a href="<?php echo INCLUDE_PATH ?>ficheiros/documentos/<?php echo $doc['nome_documento']; ?>" target="_blank"><i class="fa fa-file-pdf"></i> <?php echo $doc['nome_documento']; ?> </a>
+         </div>
+         <?php } ?>
+         
+      </div><!--descricao-postagem-->
+
+      <div class="button">
+       <a href="<?php echo INCLUDE_PATH ?>ficheiros/videos/<?php echo $video['nome_documento']; ?>" download><i class="fa fa-download" ></i> Download</a>
+      </div><!--button-->
+    </div><!--right-postagem-->
+   </div><!--postagem-painel-->
+   <?php } ?> 
    <?php }} ?>
 </div><!--content-turma-painel--->
 

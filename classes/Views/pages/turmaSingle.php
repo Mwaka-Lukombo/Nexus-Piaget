@@ -162,27 +162,177 @@ $id_turma = explode('/',$_GET['url'])[1];
   foreach($arr['controller']->listarPosts($id_turma) as $key => $value){
     $estudante = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudantes` WHERE id_estudante = ?");
     $estudante->execute(array($value['estudante_id']));
-    $estudante = $estudante->fetchAll();
+    $estudante = $estudante->fetch();
 
-  
-    foreach($estudante as $key => $dados){}
+    $docente = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.funcionarios` WHERE id = ?");
+    $docente->execute(array($value['docente_id']));
+    $docente = $docente->fetch();
+
+    if($value['docente_id'] == 0){
 ?>
 <section class="post-turma">
   <div class="top-post">
     <div class="perfil-docente-turma left">
       <?php
-          if($dados['perfil'] == ''){
+       if($estudante['perfil'] !== ""){
       ?>
+      <img src="<?php echo INCLUDE_PATH ?>uploads/<?php echo $estudante['perfil'];  ?>" />
+      <?php }else{ ?>
       <i class="fa fa-user"></i>
-    <?php }else{ ?>
-      <img src="<?php echo INCLUDE_PATH ?>uploads/<?php echo $dados['perfil']; ?>">
-    <?php } ?>
+      <?php } ?>
+  
    </div><!--perfil-docente-turma-->
 
    <div class="info-perfil left">
-     <h3><?php echo $dados['nome']; ?></h3>
+     <h3><?php echo $estudante['nome'];  ?></h3>
      <p><?php echo date('d, M Y H:i',strtotime($value['data'])); ?></p>
    </div><!--info-perfil-->
+
+
+   <div class="dots right">
+     <i class="fa-solid fa-ellipsis-vertical"></i>
+
+     <div class="Menu-dots" style="display:none">
+    <!-- Servira para apagar as publicacoes -->
+     <a href="?publicacao=<?php echo $value['id']; ?>"><i class="fa fa-trash"></i> Apagar Publicação</a>
+     <a href="<?php echo INCLUDE_PATH ?>turma/<?php echo $id_turma  ?>/<?php echo $value['id']; ?>"><i class="fa fa-pencil"></i> Editar Publicação</a>
+   </div><!--Menu-dots-->
+   </div><!--dots-->
+ 
+   <div class="clear"></div><!--clear-->
+</div><!--top-post-->
+
+<div class="post-bottom">
+ <p><?php echo $value['mensagem']; ?></p>
+ <div class="row-file">
+
+
+ 
+ <?php
+  foreach($arr['controller']->listarVideos($value['id']) as $key => $videos){
+ ?>
+  <div class="file-single left">
+   <video controls>
+      <source src="<?php echo INCLUDE_PATH ?>ficheiros/videos/<?php echo $videos['nome_documento']; ?>" type="video/mp4">
+      <source src="movie.ogg" type="video/ogg">
+   </video>
+   <div class="info-file right">
+      <p><?php echo $videos['nome_documento'];  ?></p>
+   </div><!--info-file-->
+
+   <div class="clear"></div>
+  </div><!--file-single-->
+<?php } ?>
+
+
+
+<?php
+  foreach($arr['controller']->listarDocumentos($value['id']) as $key => $documento){
+ ?>
+  <div class="file-single left">
+    <div class="place-holder-pdf left">
+      <p>PDF</p>
+     </div><!--place-holder-->
+   <div class="info-file">
+      <a href="<?php echo INCLUDE_PATH ?>ficheiros/documentos/<?php echo $documento['nome_documento']; ?>" target="_blank"><?php echo $documento['nome_documento'];  ?></a>
+      <a href="<?php echo INCLUDE_PATH ?>ficheiros/documentos/<?php echo $documento['nome_documento']; ?>" download> Baixar</a>
+   </div><!--info-file-->
+   <div class="clear"></div><!--clear-->
+  </div><!--file-single-->
+<?php } ?>
+
+<?php
+  foreach($arr['controller']->listarAudios($value['id']) as $key => $audio){
+ ?>
+  <div class="file-single left">
+   <audio controls>
+      <source src="<?php echo INCLUDE_PATH ?>ficheiros/audios/<?php echo $audio['nome_documento']; ?>" type="audio/mp3">
+      <source src="movie.ogg" type="audio/ogg">
+  </audio>
+   <div class="info-file">
+      <p><?php echo $audio['nome_documento'];  ?></p>
+   </div><!--info-file-->
+  </div><!--file-single-->
+<?php } ?>
+
+  <div class="clear"></div><!--clear-->
+</div><!--row-file-->
+
+</div><!--post-bottom-->
+<?php
+  
+?>
+<div class="comentario-post">
+
+  <?php
+    foreach($arr['controller']->listarComentario($value['id']) as $key => $comentario){
+      $estudante = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.estudantes` WHERE id_estudante = ?");
+      $estudante->execute(array($comentario['estudante_id']));
+      $estudante = $estudante->fetch();
+
+  ?>
+  <?php
+    $total = count($arr['controller']->listarComentario($value['id']));
+
+  ?>
+<div class="comentario-single" <?php if($total == 0) echo 'style="display:none"' ?>> 
+    <div class="perfil">
+       <img src="<?php echo INCLUDE_PATH ?>uploads/<?php echo $estudante['perfil'];?>">
+     </div><!--perfil-->
+     <div class="comentario-info">
+        <h4><?php echo $estudante['nome']; ?></h4>
+        <p><?php echo $comentario['comentario']; ?> <span><?php echo date('d , M . Y H:i',strtotime($comentario['data'])); ?></span></p>
+     </div><!--comentario-info-->
+     <?php
+       if($comentario['estudante_id'] == $_SESSION['id']){
+      ?>
+     <div class="deletar_comentario">
+      <a href="<?php echo INCLUDE_PATH ?>turma/<?php echo $id_turma; ?>/?deletarComentario=<?php echo $comentario['id'] ?>"><i class="fa fa-trash"></i></a>
+    </div><!--deletar_comentario-->
+      <?php } ?>
+  </div><!--comentario-single-->
+ <?php } ?>
+
+ 
+<?php
+   $total = count($arr['controller']->listarComentario($value['id']));
+   if($total >= 1){
+?>
+ <h3 id="visualizar_comentario"><i class="fa fa-users"></i> <b><?php echo $total; ?></b> <span id="conteudo_comentario">Mais Comentários</span></h3>
+ <?php } ?>
+ 
+
+<div class="clear"></div><!--clear-->
+</div><!--comentario-post-->
+
+<div class="form-comentario">
+  <form method="post">
+    <span><img src="<?php echo INCLUDE_PATH ?>uploads/<?php echo $_SESSION['img']; ?>"></span>
+    <input type="text" name="comentario" placeholder="Seu comentario***">
+    <input type="hidden" name="turma_id" value="<?php echo $value['id']; ?>">
+    <button type="submit" name="comentar"><i class="fa fa-send"></i></button>
+  </form><!--post-->
+</section><!--post-turma-->
+<?php }else{ ?>
+
+  <section class="post-turma">
+  <div class="top-post">
+    <div class="perfil-docente-turma left">
+      <?php
+        if($docente['perfil'] !== ""){
+      ?>
+       <img src="<?php echo INCLUDE_PATH_PAINEL ?>perfil/<?php echo $docente['perfil']; ?>" />
+      <?php }else{ ?>
+      <i class="fa fa-user"></i>
+     <?php } ?>
+  
+   </div><!--perfil-docente-turma-->
+
+   <div class="info-perfil left">
+     <h3><?php echo $docente['nome'];  ?></h3>
+     <p><?php echo date('d, M Y H:i',strtotime($value['data'])); ?></p>
+   </div><!--info-perfil-->
+
 
    <div class="dots right">
      <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -309,7 +459,11 @@ $id_turma = explode('/',$_GET['url'])[1];
   </form><!--post-->
 </section><!--post-turma-->
 
+  
 <?php } ?>
+
+<?php } ?>
+
 
 
 

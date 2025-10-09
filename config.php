@@ -17,7 +17,7 @@ spl_autoload_register($autoload);
 @define('cargos',[
   '0'=>'Secretaria',
   '1'=>'Docente',
-  '2'=>'Antigo estudante',
+  '2'=>'Ex estudante',
   '3'=>'Administrador'
 ]);
 

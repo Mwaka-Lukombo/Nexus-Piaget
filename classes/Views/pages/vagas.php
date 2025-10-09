@@ -58,7 +58,7 @@
          <div class="right-side-vaga">
             <h3><?php echo $value['titulo']; ?></h3>
             <p class="descricao_vaga"><?php echo $value['descricacao']; ?></p>
-            <p>Para mais informacoes entre em nosso site: <a href="#"><?php echo $value['link_site'] ?></a></p>
+            <p>Para mais informacoes entre em nosso site: <a href="<?php echo $value['link_site'] ?>" target="_blank"><?php echo $value['link_site'] ?></a></p>
         </div><!--right-side-vaga-->
      </div><!--vaga-single-->
      <?php } ?>

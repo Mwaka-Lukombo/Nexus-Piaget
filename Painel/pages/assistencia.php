@@ -14,8 +14,7 @@ if($_SESSION['cargo'] == 3){
   </div><!--wellcome-->
 
   <div class="assistence-row">
-
-
+    
   </div><!--assistence-row-->
  
 </div><!--box-content-->

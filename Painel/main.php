@@ -28,7 +28,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
   <title>Painel de Controle</title>
   
   <!-- link do css -->
-   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_7400.css">
+   <link rel="stylesheet" href="<?php echo INCLUDE_PATH_PAINEL ?>css/painel_200.css">
    <link rel="icon" href="<?php echo INCLUDE_PATH ?>img/Logo.webp">
    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -124,14 +124,8 @@ $nome = explode(" ",$_SESSION['nome'])[0];
     </div><!--items-single-->
    <?php } ?>
 
-<?php
-  if($_SESSION['cargo'] == 2){
-?>
-    <div class="items-single <?php if($url == 'mensagens') print 'selected' ?>">
-      <a href="<?php echo INCLUDE_PATH_PAINEL ?>mensagens"><i class="bx bx-conversation"></i></a>
-      <span>Mensagens</span>
-    </div><!--items-single-->
-<?php  } ?>
+   
+
 
 
 <?php

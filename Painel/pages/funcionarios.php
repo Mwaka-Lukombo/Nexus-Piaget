@@ -3,10 +3,35 @@
 
   if($_SESSION['cargo'] == 3){
 
+    
+
 ?>
 <!-- <section class="base">
   <p><i class="fa fa-check"></i> Usuario cadastrado com sucesso! </p>
 </section> -->
+
+<?php
+
+ if(isset($_POST['acao'])){
+     $nome = $_POST['nome'];
+     $email = $_POST['email'];
+     $perfil = @$_FILES['perfil'];
+     $senha = rand(100,100000000);
+     $cargo = $_POST['cargo'];
+
+     $dir = 'perfil/';
+     $ok = true;
+
+  
+     if($ok){
+     	move_uploaded_file($perfil['tmp_name'],$dir.$perfil['name']);
+     	$sql = \Mysql::conectar()->prepare("INSERT INTO `tb_site.funcionarios` VALUES (null,?,?,?,?,?)");
+     	$sql->execute(array($nome,$email,$senha,$perfil['name'],$cargo));
+     	print "<script>alert('Usuario Cadastrado com sucesso!')</script>";
+     }
+
+    }
+?>
 
 <?php
 
@@ -32,7 +57,7 @@
   </div><!--wellcome-->
 
   
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="nome">Nome completo:</label>
       <input type="text" name="nome" placeholder="Nome completo">

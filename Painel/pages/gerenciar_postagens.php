@@ -24,6 +24,18 @@ if(isset($_GET['deletar'])){
 }
 
 
+//deletar vaga
+if(isset($_GET['deletarVaga'])){
+  $vaga_id = (int)$_GET['deletarVaga'];
+
+  $sql = \Mysql::conectar()->prepare("DELETE FROM `tb_site.vagas` WHERE id = ?");
+  if($sql->execute(array($vaga_id))){
+    \Painel::mensagem("sucesso","Vaga Excluida com sucesso!");
+    \Painel::redirectJS(INCLUDE_PATH_PAINEL.'gerenciar_postagens');
+  }
+}
+
+
  $pdo = new PDO("mysql:host=localhost;dbname=nexus", "root", "");
 
 
@@ -75,6 +87,13 @@ if(isset($_GET['deletar'])){
      if($titulo == "" || $capa_vaga == "" || $descricao == "" || $link == ""){
         echo '<script>alert("Nao sao permitidos campos vazios!")</script>';
         $ok = false;
+     }
+
+     $verifica = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.vagas` WHERE id_estudante = ? AND titulo = ? AND curso = ?");
+     $verifica->execute(array($estudante_id,$titulo,$curso));
+     if($verifica->rowCount() == 1){
+      $ok = false;
+      echo '<script>alert("A vaga ja foi publicada")</script>';
      }
 
 
@@ -143,7 +162,7 @@ if(isset($_GET['deletar'])){
     </div>
 
     <div class="form-group">
-       <label>Link do site:</label>
+       <label>Link do site: <span>https://mwaka-lukombo.github.io/site_emprego/</span></label>
        <input type="text" name="link_site">
     </div>
 
@@ -189,7 +208,10 @@ if(isset($_GET['deletar'])){
     <?php
 
       
-
+    if(!$estudante_id){
+        echo '<h2 style="font-size:1.2em;padding:10px;background:tomato;width:100%;text-align:center;color:#fff">Atualmente não possui notícias</h2>';
+        exit; // ou trate de outra forma
+    }
       $noticias = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.noticias_alumin` WHERE estudante_id = ?");
       $noticias->execute(array($estudante_id['id']));
       $noticias = $noticias->fetchAll();
@@ -215,6 +237,41 @@ if(isset($_GET['deletar'])){
           <div class="button">
             <a href="<?php echo INCLUDE_PATH_PAINEL ?>gerenciar_postagens?id=<?php echo $value['id']; ?>"><i class="fa fa-pencil"></i> Editar</i>
             <a href="<?php echo INCLUDE_PATH_PAINEL ?>gerenciar_postagens?deletar=<?php echo $value['id']; ?>"><i class="fa fa-trash"></i> Apagar</a>
+           </div><!--button-->
+        </div><!--bottom-->
+     </div><!--gerenciar-single-->
+    <?php } ?>
+  </div><!--gerenciar-row-->
+
+      </div><!--content-->
+
+      
+<div class="box-content" style="margin-top:20px">
+<div class="wellcome">
+     <h3>Gerenciar Vagas</h3>
+     </div><!--wellcome-->
+<div class="gerenciar-row" style="margin:30px 0">
+    <?php
+
+      
+    if(!$estudante_id){
+        echo '<h2 style="font-size:1.2em;padding:10px;background:tomato;width:100%;text-align:center;color:#fff">Atualmente não possui notícias</h2>';
+        exit; // ou trate de outra forma
+    }
+      $vagas = \Mysql::conectar()->prepare("SELECT * FROM `tb_site.vagas` WHERE id_estudante = ?");
+      $vagas->execute(array($_SESSION['id']));
+      $vagas = $vagas->fetchAll();
+      foreach($vagas as $value){
+    ?>
+     <div class="gerenciar-single">
+       <div class="top">
+        <img src="<?php echo INCLUDE_PATH_PAINEL ?>ficheiros_noticias/vagas/<?php echo $value['cartaz']; ?>">
+       </div><!--top-->
+       <div class="bottom">
+         <h4><?php echo $value['titulo'] ?></h4>
+         <p><?php echo $value['descricacao'] ?></p>
+          <div class="button">
+            <a style="width:100%" href="<?php echo INCLUDE_PATH_PAINEL ?>gerenciar_postagens?deletarVaga=<?php echo $value['id']; ?>"><i class="fa fa-trash"></i> Apagar</a>
            </div><!--button-->
         </div><!--bottom-->
      </div><!--gerenciar-single-->

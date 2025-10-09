@@ -69,8 +69,10 @@ $postagens = \Controllers\forumPostController::ListarForumPost($idTopico);
     <h3><?php echo cargos[$value['cargo']] ." ". $value['nome']; ?></h3>
     <?php }else if($value['cargo'] == 3){ ?>
       <h3><?php echo cargos[$value['cargo']] ?></h3>
+    <?php }else if($value['cargo'] == 2){ ?>
+     <h3><span style="color:#8a1a20;font-weight:bold;text-decoration:underline"><?php echo  cargos[$value['cargo']]."</span>"." ". $value['nome']; ?></h3>
     <?php }else{ ?>
-     <h3><?php echo  $value['nome']; ?></h3>
+      <h3><?php echo $value['nome']; ?></h3>
     <?php } ?>
     <p><?php echo $value['mensagem'] ?></p>
   </div><!--postagem_forum-->

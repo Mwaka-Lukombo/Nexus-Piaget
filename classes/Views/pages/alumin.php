@@ -134,7 +134,7 @@
             </div><!--avatar-perfil-noticias-->
             <div class="info-perfil-noticias-alumin w90">
                 <h3><?php echo $dados['nome']; ?></h3>
-                <p style="margin-bottom:7px;font-size:12px;font-weight:normal"><span><?php echo $dados['curso'] ?></span> <b>||</b> <span><?php echo $dados['sobre']; ?></span> </p>
+                <p style="margin-bottom:7px;font-size:12px;font-weight:normal"><span><?php echo $dados['curso'] ?></span> <b>||</b> <span><?php echo substr($dados['sobre'],0,200); ?>...</span> </p>
             </div><!--info-perfil-noticias-alumin-->
          </div><!--flex-->
          <div class="descricacao-noticia-alumin">

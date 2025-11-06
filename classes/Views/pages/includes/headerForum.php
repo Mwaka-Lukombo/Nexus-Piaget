@@ -46,25 +46,12 @@ $url = explode('/',@$_GET['url'])[0];
     <li>
             <a href="<?php echo INCLUDE_PATH ?>campus">Home</a>
         </li>
-        <li>
-            <a href="<?php echo INCLUDE_PATH ?>comunidade" <?php \Painel::verifica('comunidade'); ?>>Comunidade</a>
-        </li>
-
+       
         <li>
             <a href="<?php echo INCLUDE_PATH ?>alumin" <?php \Painel::verifica('alumin'); ?>>Alumin</a>
         </li>
 
-         <li>
-            <a href="<?php echo INCLUDE_PATH ?>assistencia" <?php \Painel::verifica('assistencia'); ?>>Assistência</a>
-        </li>
-
-        <li>
-            <a href="<?php echo INCLUDE_PATH ?>forum" <?php \Painel::verifica('forum'); ?>>Fórum</a>
-        </li>
-
-        <li>
-            <a href="<?php echo INCLUDE_PATH ?>turma" <?php \Painel::verifica('turma'); ?>>Turma</a>
-        </li>
+         
 
         <li>
             <a href="?logout"><i class="fa fa-power-off"></i></a>

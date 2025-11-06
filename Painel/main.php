@@ -82,50 +82,7 @@ $nome = explode(" ",$_SESSION['nome'])[0];
     </div><!--items-single-->
     <?php } ?>
 
-
-     <?php 
-   if($_SESSION['cargo'] == 3){
- ?>
-    <div class="items-single <?php if($url == 'cursos') print 'selected' ?>">
-      <a href="<?php echo INCLUDE_PATH_PAINEL ?>cursos"><i class="fa fa-graduation-cap"></i></a>
-      <span>Cursos</span>
-    </div><!--items-single-->
-    <?php } ?>
-
-     <?php 
-   if($_SESSION['cargo'] == 3){
- ?>
-    <div class="items-single <?php if($url == 'suporte') print 'selected' ?>">
-      <a href="<?php echo INCLUDE_PATH_PAINEL ?>suporte"><i class="fa-solid fa-headset"></i></a>
-      <span>Suporte</span>
-    </div><!--items-single-->
-    <?php } ?>
-
-  
-
     
-
-<?php
-  if($_SESSION['cargo'] == 2 || $_SESSION['cargo'] == 1){
-?>
-    <div class="items-single <?php if($url == 'foruns') print 'selected' ?>">
-      <a href="<?php echo INCLUDE_PATH_PAINEL ?>foruns"><i class="bx bx-user-voice"></i></a>
-      <span>Fóruns</span>
-    </div><!--items-single-->
-    <?php } ?>
-
-   
-<?php 
-   if($_SESSION['cargo'] == 1){
-?>
-    <div class="items-single <?php if($url == 'turmas') print 'selected' ?>">
-      <a href="<?php echo INCLUDE_PATH_PAINEL ?>turmas"><i class="bx bx-chalkboard"></i></a>
-      <span>Turmas</span>
-    </div><!--items-single-->
-   <?php } ?>
-
-   
-
 
 
 <?php

@@ -59,7 +59,7 @@
        
 
        <div class="bottom-single">
-         <a href="<?php echo INCLUDE_PATH ?>alumin/conexoes_existentes">Suas Conexões<br>
+         <a href="<?php echo INCLUDE_PATH ?>alumin/#">Suas Conexões<br>
             <span>Verifique as conexões</span>
          </a>
        </div><!--bottom-single-->
